@@ -2,7 +2,7 @@
 <!-- Background circle for the magnitude value -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="oval">
-    <solid android:color="@color/raw" />
+    <solid android:color="@color/row" />
     <size
         android:width="36dp"
         android:height="36dp" />

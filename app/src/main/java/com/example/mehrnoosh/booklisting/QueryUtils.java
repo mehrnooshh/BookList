@@ -151,7 +151,7 @@ public final class QueryUtils {
                 // Extract the value for the key called "publisher"
                 String publisher = "";
                 if (volumeInfo.has("publisher")) {
-                    volumeInfo.getString("publisher");
+                    publisher = volumeInfo.getString("publisher");
                 }
 
                 // Extract the value for the key called "publishedDate"

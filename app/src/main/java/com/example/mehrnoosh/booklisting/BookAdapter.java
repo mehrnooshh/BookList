@@ -28,8 +28,13 @@ public class BookAdapter extends ArrayAdapter<Book> {
                     R.layout.book_list_item, parent, false);
         }
 
-        // Find the earthquake at the given position in the list of earthquakes
+        // Find the book at the given position in the list of books
         final Book currentBook = getItem(position);
+
+        // Find the TextView with view ID row
+        TextView rowView = (TextView) listItemView.findViewById(R.id.row);
+        // Display the row of the current book in that TextView
+        rowView.setText(String.valueOf(position+1));
 
         // Find the TextView with view ID publisher
         TextView publisherView = (TextView) listItemView.findViewById(R.id.publisher);
@@ -42,9 +47,9 @@ public class BookAdapter extends ArrayAdapter<Book> {
         titleView.setText(currentBook.getTitle());
 
         // Find the TextView with view ID ISBN
-        TextView ISBNView = (TextView) listItemView.findViewById(R.id.ISBN);
+        TextView googleIDView = (TextView) listItemView.findViewById(R.id.google_id);
         // Display the ISBN of the current book in that TextView
-        titleView.setText(currentBook.getISBN());
+        googleIDView.setText(currentBook.getGoogleId());
 
         // Create a new Date object from the time in milliseconds of the book
         //Date dateObject = new Date(currentBook.getDate());

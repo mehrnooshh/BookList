@@ -9,11 +9,11 @@
     android:paddingStart="16dp">
 
     <TextView
-        android:id="@+id/raw"
+        android:id="@+id/row"
         android:layout_width="36dp"
         android:layout_height="36dp"
         android:layout_gravity="center_vertical"
-        android:background="@drawable/raw_circle"
+        android:background="@drawable/row_circle"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
         android:textColor="@android:color/white"
@@ -29,15 +29,13 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <TextView
+         <TextView
             android:id="@+id/publisher"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:fontFamily="sans-serif-medium"
-            android:maxLines="1"
-            android:inputType="textCapWords"
-            android:textColor="@color/textColorEarthquakeDetails"
+            android:singleLine="true"
+            android:textColor="@color/textColorBookDetails"
             android:textSize="12sp"
             tools:text="ghoghnoos" />
 
@@ -46,39 +44,38 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="end"
-            android:maxLines="2"
-            android:textColor="@color/textColorEarthquakeLocation"
+            android:singleLine="true"
+            android:textColor="@color/textColorBookTitle"
             android:textSize="16sp"
-            android:inputType="textCapWords"
             tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
 
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:layout_marginStart="16dp"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/date"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textColor="@color/textColorEarthquakeDetails"
-            android:textSize="12sp"
-            tools:text="Mar 6, 2010" />
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/ISBN"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:textColor="@color/textColorEarthquakeDetails"
-            android:textSize="12sp"
-            tools:text="Vw4DQ124" />
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/textColorBookDetails"
+                android:textSize="12sp"
+                tools:text="Mar 6, 2010" />
 
+            <TextView
+                android:id="@+id/google_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:textColor="@color/textColorBookTitle"
+                android:textSize="12sp"
+                tools:text="Vw4DQ124" />
+
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>

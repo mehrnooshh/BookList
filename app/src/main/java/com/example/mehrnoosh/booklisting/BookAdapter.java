@@ -5,7 +5,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,7 +26,7 @@ import java.util.List;
 
 public class BookAdapter extends ArrayAdapter<Book> {
 
-    private class MyAsyncTask extends AsyncTask<Void, Void, Drawable> {
+    private class MyAsyncTask extends AsyncTask<Void, Void, Bitmap> {
 
         private String thumbnailUrl;
         private TextView rowTextView;
@@ -38,7 +37,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
         }
 
         @Override
-        protected Drawable doInBackground(Void... v) {
+        protected Bitmap doInBackground(Void... v) {
             try {
                     /* Open a new URL and get the InputStream to load data from it. */
                 URL aURL = new URL(thumbnailUrl);
@@ -52,7 +51,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
                 bis.close();
                 is.close();
 
-                return new BitmapDrawable(bm);
+                return bm;
                 //d.setId("1");
                 //textview.setCompoundDrawablesWithIntrinsicBounds(0,0,1,0);// wherever u want the image relative to textview
             } catch (IOException e) {
@@ -62,9 +61,8 @@ public class BookAdapter extends ArrayAdapter<Book> {
         }
 
         @Override
-        protected void onPostExecute(Drawable drawable) {
-            super.onPostExecute(drawable);
-            rowTextView.setBackground(drawable);
+        protected void onPostExecute(Bitmap bitmap) {
+            rowTextView.setBackground(new BitmapDrawable(rowTextView.getContext().getResources(), bitmap));
         }
     }
 

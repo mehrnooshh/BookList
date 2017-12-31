@@ -26,6 +26,48 @@ import java.util.List;
  */
 
 public class BookAdapter extends ArrayAdapter<Book> {
+
+    private class MyAsyncTask extends AsyncTask<Void, Void, Drawable> {
+
+        private String thumbnailUrl;
+        private TextView rowTextView;
+
+        public MyAsyncTask(String thumbnailUrl, TextView rowTextView) {
+            this.thumbnailUrl = thumbnailUrl;
+            this.rowTextView = rowTextView;
+        }
+
+        @Override
+        protected Drawable doInBackground(Void... v) {
+            try {
+                    /* Open a new URL and get the InputStream to load data from it. */
+                URL aURL = new URL(thumbnailUrl);
+                URLConnection conn = aURL.openConnection();
+                conn.connect();
+                InputStream is = conn.getInputStream();
+                    /* Buffered is always good for a performance plus. */
+                BufferedInputStream bis = new BufferedInputStream(is);
+                    /* Decode url-data to a bitmap. */
+                Bitmap bm = BitmapFactory.decodeStream(bis);
+                bis.close();
+                is.close();
+
+                return new BitmapDrawable(bm);
+                //d.setId("1");
+                //textview.setCompoundDrawablesWithIntrinsicBounds(0,0,1,0);// wherever u want the image relative to textview
+            } catch (IOException e) {
+                Log.e("DEBUGTAG", "Remote Image Exception", e);
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Drawable drawable) {
+            super.onPostExecute(drawable);
+            rowTextView.setBackground(drawable);
+        }
+    }
+
     public BookAdapter(Context context, List<Book> objects) {
         super(context, android.R.layout.simple_list_item_1, objects);
     }
@@ -76,41 +118,8 @@ public class BookAdapter extends ArrayAdapter<Book> {
         return listItemView;
     }
 
-    private void fetchThumbnail(final String thumbnailUrl, final TextView rowTextView) {
-Log.v("fetchThumbnail", thumbnailUrl);
-        AsyncTask<Void, Void, Drawable> asyncTask = new AsyncTask<Void, Void, Drawable>() {
-            @Override
-            protected Drawable doInBackground(Void... v) {
-                try {
-                    /* Open a new URL and get the InputStream to load data from it. */
-                    URL aURL = new URL(thumbnailUrl);
-                    URLConnection conn = aURL.openConnection();
-                    conn.connect();
-                    InputStream is = conn.getInputStream();
-                    /* Buffered is always good for a performance plus. */
-                    BufferedInputStream bis = new BufferedInputStream(is);
-                    /* Decode url-data to a bitmap. */
-                    Bitmap bm = BitmapFactory.decodeStream(bis);
-                    bis.close();
-                    is.close();
-
-                    Drawable d =new BitmapDrawable(bm);
-                    return d;
-                    //d.setId("1");
-                    //textview.setCompoundDrawablesWithIntrinsicBounds(0,0,1,0);// wherever u want the image relative to textview
-                } catch (IOException e) {
-                    Log.e("DEBUGTAG", "Remote Image Exception", e);
-                    return null;
-                }
-            }
-
-            @Override
-            protected void onPostExecute(Drawable drawable) {
-                super.onPostExecute(drawable);
-                rowTextView.setBackground(drawable);
-            }
-        };
-
+    private void fetchThumbnail(String thumbnailUrl, TextView rowTextView) {
+        MyAsyncTask asyncTask = new MyAsyncTask(thumbnailUrl, rowTextView);
         asyncTask.execute();
     }
 }

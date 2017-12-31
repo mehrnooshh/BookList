@@ -153,7 +153,12 @@ public final class QueryUtils {
                 if (volumeInfo.has("publisher")) {
                     publisher = volumeInfo.getString("publisher");
                 }
-
+               // Extract the value for the jsonObject associated with the key called "imageLinks"
+                JSONObject imageLinks = volumeInfo.getJSONObject("imageLinks");
+                String smallThumbnail = "";
+                if (imageLinks.has("smallThumbnail")) {
+                    smallThumbnail = imageLinks.getString("thumbnail");
+                }
                 // Extract the value for the key called "publishedDate"
                 String publishedDate = "";
                 if (volumeInfo.has("publishedDate")) {
@@ -176,7 +181,7 @@ public final class QueryUtils {
 
                 // Create a new {@link Book} object with the title, publisher, authors, googleId, date,
                 // and infoUrl from the JSON response.
-                Book book = new Book(title, publisher, googleId, publishedDate, infoUrl, authors);
+                Book book = new Book(title, publisher, googleId, publishedDate, infoUrl, authors, smallThumbnail);
 
                 // Add the new {@link Book} to the list of bookItems.
                 bookItems.add(book);

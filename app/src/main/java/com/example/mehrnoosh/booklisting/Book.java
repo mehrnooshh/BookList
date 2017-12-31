@@ -8,6 +8,7 @@ import java.util.List;
 
 public class Book {
 
+    private String mThumbnailUrl;
     private String mTitle;
     private String mPublisher;
     private String mGoogleId;
@@ -16,13 +17,14 @@ public class Book {
     /** Website URL of the earthquake */
     private String mUrl;
 
-    public Book(String title, String publisher, String googleId, String date, String url, List<String> authors){
+    public Book(String title, String publisher, String googleId, String date, String url, List<String> authors, String thumbnailUrl){
         mTitle = title;
         mPublisher = publisher;
         mPublishedDate = date;
         mUrl = url;
         mAuthors = authors;
         mGoogleId = googleId;
+        mThumbnailUrl = thumbnailUrl;
     }
 
     public String getTitle() {
@@ -51,7 +53,9 @@ public class Book {
         return mAuthors;
     }
 
- /*   @Override
+    public String getThumbnailUrl() { return mThumbnailUrl; }
+
+    /*   @Override
     public String toString() {
         return mMagnitude + " " + mLocation + mDate;
     }*/

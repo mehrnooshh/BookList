@@ -2,12 +2,23 @@ package com.example.mehrnoosh.booklisting;
 
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
+import android.os.AsyncTask;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import java.io.BufferedInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.List;
 
 /**
@@ -36,6 +47,8 @@ public class BookAdapter extends ArrayAdapter<Book> {
         // Display the row of the current book in that TextView
         rowView.setText(String.valueOf(position+1));
 
+        fetchThumbnail(currentBook.getThumbnailUrl(), rowView);
+
         // Find the TextView with view ID publisher
         TextView publisherView = (TextView) listItemView.findViewById(R.id.publisher);
         // Display the publisher of the current book in that TextView
@@ -61,5 +74,43 @@ public class BookAdapter extends ArrayAdapter<Book> {
         dateTextView.setText(currentBook.getDate());
         // Return the list item view that is now showing the appropriate data
         return listItemView;
+    }
+
+    private void fetchThumbnail(final String thumbnailUrl, final TextView rowTextView) {
+Log.v("fetchThumbnail", thumbnailUrl);
+        AsyncTask<Void, Void, Drawable> asyncTask = new AsyncTask<Void, Void, Drawable>() {
+            @Override
+            protected Drawable doInBackground(Void... v) {
+                try {
+                    /* Open a new URL and get the InputStream to load data from it. */
+                    URL aURL = new URL(thumbnailUrl);
+                    URLConnection conn = aURL.openConnection();
+                    conn.connect();
+                    InputStream is = conn.getInputStream();
+                    /* Buffered is always good for a performance plus. */
+                    BufferedInputStream bis = new BufferedInputStream(is);
+                    /* Decode url-data to a bitmap. */
+                    Bitmap bm = BitmapFactory.decodeStream(bis);
+                    bis.close();
+                    is.close();
+
+                    Drawable d =new BitmapDrawable(bm);
+                    return d;
+                    //d.setId("1");
+                    //textview.setCompoundDrawablesWithIntrinsicBounds(0,0,1,0);// wherever u want the image relative to textview
+                } catch (IOException e) {
+                    Log.e("DEBUGTAG", "Remote Image Exception", e);
+                    return null;
+                }
+            }
+
+            @Override
+            protected void onPostExecute(Drawable drawable) {
+                super.onPostExecute(drawable);
+                rowTextView.setBackground(drawable);
+            }
+        };
+
+        asyncTask.execute();
     }
 }

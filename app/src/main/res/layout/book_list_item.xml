@@ -4,9 +4,9 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:orientation="horizontal"
     android:paddingEnd="16dp"
-    android:paddingLeft="16dp"
-    android:paddingRight="16dp"
-    android:paddingStart="16dp">
+    android:paddingStart="16dp"
+    android:layout_marginBottom="10dp"
+    >
 
     <TextView
         android:id="@+id/row"
@@ -15,9 +15,10 @@
         android:layout_gravity="center_vertical"
         android:fontFamily="sans-serif-medium"
         android:gravity="center"
-        android:textColor="@android:color/white"
+        android:textColor="@android:color/holo_red_light"
         android:textSize="16sp"
-        tools:text="1" />
+        tools:text="1"
+        android:backgroundTintMode="src_over"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -28,16 +29,6 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-         <TextView
-            android:id="@+id/publisher"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="end"
-            android:singleLine="true"
-            android:textColor="@color/textColorBookDetails"
-            android:textSize="12sp"
-            tools:text="ghoghnoos" />
-
         <TextView
             android:id="@+id/title"
             android:layout_width="wrap_content"
@@ -47,6 +38,25 @@
             android:textColor="@color/textColorBookTitle"
             android:textSize="16sp"
             tools:text="Long placeholder location that should wrap to more than 2 lines of text" />
+
+        <TextView
+            android:id="@+id/authors"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textSize="12sp"
+            tools:text="Davood Maz" />
+
+        <TextView
+            android:id="@+id/publisher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:textColor="@color/textColorBookDetails"
+            android:textSize="12sp"
+            tools:text="ghoghnoos" />
 
     </LinearLayout>
 
@@ -67,14 +77,14 @@
                 android:textSize="12sp"
                 tools:text="Mar 6, 2010" />
 
-            <TextView
-                android:id="@+id/google_id"
+            <RatingBar
+                android:id="@+id/rating_bar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:textColor="@color/textColorBookTitle"
-                android:textSize="12sp"
-                tools:text="Vw4DQ124" />
+                android:numStars="5"
+                android:stepSize="1"
+                style="?android:attr/ratingBarStyleSmall"            />
 
         </LinearLayout>
+
     </LinearLayout>

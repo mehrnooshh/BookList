@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import java.io.BufferedInputStream;
@@ -98,11 +99,15 @@ public class BookAdapter extends ArrayAdapter<Book> {
         TextView titleView = (TextView) listItemView.findViewById(R.id.title);
         // Display the title of the current book in that TextView
         titleView.setText(currentBook.getTitle());
+        // Find the TextView with view ID authors
+        TextView authorsView = (TextView) listItemView.findViewById(R.id.authors);
+        // Display the authors of the current book in that TextView
+        authorsView.setText(currentBook.getAuthors().toString());
 
-        // Find the TextView with view ID ISBN
-        TextView googleIDView = (TextView) listItemView.findViewById(R.id.google_id);
-        // Display the ISBN of the current book in that TextView
-        googleIDView.setText(currentBook.getGoogleId());
+        // Find the RatingBar with rating_bar id
+        RatingBar ratingBar = (RatingBar) listItemView.findViewById(R.id.rating_bar);
+       // To show rating on RatingBar
+        ratingBar.setRating(currentBook.getAverageRating());
 
         // Create a new Date object from the time in milliseconds of the book
         //Date dateObject = new Date(currentBook.getDate());
@@ -113,6 +118,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
         //dateTextView.setText(dateFormat.format(dateObject));
         dateTextView.setText(currentBook.getDate());
         // Return the list item view that is now showing the appropriate data
+
         return listItemView;
     }
 

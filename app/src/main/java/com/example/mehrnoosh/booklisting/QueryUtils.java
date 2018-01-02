@@ -142,8 +142,11 @@ public final class QueryUtils {
                 // for that book.
                 JSONObject volumeInfo = currentBook.getJSONObject("volumeInfo");
 
-                // Extract the value for the key called "id"
-                String googleId = currentBook.getString("id");
+                // Extract the value for the key called "averageRating"
+                int averageRating = 0;
+                if(volumeInfo.has("averageRating")){
+                    averageRating = volumeInfo.getInt("averageRating");
+                }
 
                 // Extract the value for the key called "title"
                 String title = volumeInfo.getString("title");
@@ -181,7 +184,7 @@ public final class QueryUtils {
 
                 // Create a new {@link Book} object with the title, publisher, authors, googleId, date,
                 // and infoUrl from the JSON response.
-                Book book = new Book(title, publisher, googleId, publishedDate, infoUrl, authors, smallThumbnail);
+                Book book = new Book(title, publisher, averageRating, publishedDate, infoUrl, authors, smallThumbnail);
 
                 // Add the new {@link Book} to the list of bookItems.
                 bookItems.add(book);

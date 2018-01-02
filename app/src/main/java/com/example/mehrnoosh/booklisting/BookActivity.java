@@ -13,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -122,31 +122,32 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
+        // Set default item in spinner at the 3rd position (=10)
+        spinner.setSelection(2);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 maxResults = Integer.valueOf(parent.getItemAtPosition(position).toString());
-
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 maxResults = 10;
-
             }
         });
-        Button searchButton = (Button) findViewById(R.id.search_button);
+        ImageButton searchButton = (ImageButton) findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                SearchView searchView = (SearchView) findViewById(R.id.search_view);
+                final SearchView searchView = (SearchView) findViewById(R.id.search_view);
                 searchQuery = searchView.getQuery().toString();
                 url = String.format(GOOGLEBOOk_REQUEST_URL, searchQuery, maxResults);
                 LoaderManager loaderManager = getLoaderManager();
                 loaderManager.restartLoader(BOOK_LOADER_ID, null, BookActivity.this);
             }
         });
-    }
+
+         }
 
     @Override
     public Loader<List<Book>> onCreateLoader(int id, Bundle args) {

@@ -5,28 +5,43 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
         <SearchView
             android:id="@+id/search_view"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
             android:queryHint="@string/search_books"
             android:inputType="textCapWords"
-            />
+            android:searchIcon="@null"
+            android:layout_weight="8"
+
+         />
 
         <Spinner
             android:id="@+id/max_results"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right" />
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
 
-    <Button
-        android:id="@+id/search_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/search" />
+             />
+
+        <ImageButton
+            android:id="@+id/search_button"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+           android:src="@android:drawable/ic_search_category_default"
+            android:gravity="right"
+
+            android:layout_weight="1.5"/>
+
+</LinearLayout>
+
+
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"

@@ -2,9 +2,9 @@
 <resources>
     <string-array name="issues_quantity_array">
         <item>5</item>
+        <item>8</item>
         <item>10</item>
+        <item>15</item>
         <item>20</item>
-        <item>50</item>
-        <item>100</item>
     </string-array>
 </resources>

@@ -11,19 +11,19 @@ public class Book {
     private String mThumbnailUrl;
     private String mTitle;
     private String mPublisher;
-    private String mGoogleId;
+    private int mAverageRating;
     private String mPublishedDate;
     private List <String> mAuthors;
     /** Website URL of the earthquake */
     private String mUrl;
 
-    public Book(String title, String publisher, String googleId, String date, String url, List<String> authors, String thumbnailUrl){
+    public Book(String title, String publisher, int averageRating, String date, String url, List<String> authors, String thumbnailUrl){
         mTitle = title;
         mPublisher = publisher;
         mPublishedDate = date;
         mUrl = url;
         mAuthors = authors;
-        mGoogleId = googleId;
+        mAverageRating = averageRating;
         mThumbnailUrl = thumbnailUrl;
     }
 
@@ -35,8 +35,8 @@ public class Book {
         return mPublisher;
     }
 
-    public String getGoogleId() {
-        return mGoogleId;
+    public int getAverageRating() {
+        return mAverageRating;
     }
     public String getDate() {
         return mPublishedDate;

@@ -135,15 +135,25 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
                 maxResults = 10;
             }
         });
+        SearchView searchView = (SearchView) findViewById(R.id.search_view);
         ImageButton searchButton = (ImageButton) findViewById(R.id.search_button);
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final SearchView searchView = (SearchView) findViewById(R.id.search_view);
-                searchQuery = searchView.getQuery().toString();
-                url = String.format(GOOGLEBOOk_REQUEST_URL, searchQuery, maxResults);
-                LoaderManager loaderManager = getLoaderManager();
-                loaderManager.restartLoader(BOOK_LOADER_ID, null, BookActivity.this);
+               doSearch();
+            }
+        });
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String s) {
+                doSearch();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String s) {
+                return false;
             }
         });
 
@@ -184,5 +194,14 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         Log.i(LOG_TAG, "Test: onLoaderReset called:) ");
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
+    }
+
+    private void doSearch(){
+        SearchView searchView = (SearchView) findViewById(R.id.search_view);
+        searchQuery = searchView.getQuery().toString();
+        url = String.format(GOOGLEBOOk_REQUEST_URL, searchQuery, maxResults);
+        LoaderManager loaderManager = getLoaderManager();
+        loaderManager.restartLoader(BOOK_LOADER_ID, null, BookActivity.this);
+
     }
 }

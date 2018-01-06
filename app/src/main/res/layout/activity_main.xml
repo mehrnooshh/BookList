@@ -36,7 +36,7 @@
             android:scaleType="fitCenter"
             android:gravity="right"
             android:layout_weight="1"
-            android:src="@drawable/search_icon"
+            android:src="@mipmap/search_icon"
             android:background="@android:color/transparent"
             android:layout_marginRight="5dp"/>
     </LinearLayout>

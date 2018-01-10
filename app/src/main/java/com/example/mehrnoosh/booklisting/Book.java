@@ -14,7 +14,7 @@ public class Book {
     private int mAverageRating;
     private String mPublishedDate;
     private List <String> mAuthors;
-    /** Website URL of the earthquake */
+    /** Website URL of the book */
     private String mUrl;
 
     public Book(String title, String publisher, int averageRating, String date, String url, List<String> authors, String thumbnailUrl){
@@ -43,7 +43,7 @@ public class Book {
     }
 
     /**
-     * Returns the website URL to find more information about the earthquake.
+     * Returns the website URL to find more information about the book.
      */
     public String getUrl() {
         return mUrl;

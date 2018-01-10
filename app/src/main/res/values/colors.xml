@@ -4,11 +4,11 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <!-- Color for an earthquake with magnitude 0 and 2 -->
+    <!-- Color for a book with magnitude 0 and 2 -->
     <color name="row">#E75F40</color>
-    <!-- Text color for the details of the earthquake in the list item -->
+    <!-- Text color for the details of the book in the list item -->
     <color name="textColorBookDetails">#B4BAC0</color>
 
-    <!-- Text color for the primary location of the earthquake in the list item -->
+    <!-- Text color for the primary location of the book in the list item -->
     <color name="textColorBookTitle">#2B3D4D</color>
 </resources>

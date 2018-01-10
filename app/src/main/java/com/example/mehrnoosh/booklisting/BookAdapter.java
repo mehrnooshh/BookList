@@ -54,7 +54,7 @@ public class BookAdapter extends ArrayAdapter<Book> {
 
                 return bm;
                 //d.setId("1");
-                //textview.setCompoundDrawablesWithIntrinsicBounds(0,0,1,0);// wherever u want the image relative to textview
+                //textView.setCompoundDrawablesWithIntrinsicBounds(0,0,1,0);// wherever u want the image relative to textView
             } catch (IOException e) {
                 Log.e("DEBUGTAG", "Remote Image Exception", e);
                 return null;
@@ -109,13 +109,9 @@ public class BookAdapter extends ArrayAdapter<Book> {
        // To show rating on RatingBar
         ratingBar.setRating(currentBook.getAverageRating());
 
-        // Create a new Date object from the time in milliseconds of the book
-        //Date dateObject = new Date(currentBook.getDate());
         // Find the TextView with view ID date
         TextView dateTextView = (TextView) listItemView.findViewById(R.id.date);
-        // Display the date of the current book in that TextView
-        //SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy");
-        //dateTextView.setText(dateFormat.format(dateObject));
+
         dateTextView.setText(currentBook.getDate());
         // Return the list item view that is now showing the appropriate data
 

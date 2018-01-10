@@ -202,6 +202,5 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         url = String.format(GOOGLEBOOk_REQUEST_URL, searchQuery, maxResults);
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.restartLoader(BOOK_LOADER_ID, null, BookActivity.this);
-
     }
 }

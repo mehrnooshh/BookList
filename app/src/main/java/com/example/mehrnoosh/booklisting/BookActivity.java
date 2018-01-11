@@ -1,6 +1,7 @@
 package com.example.mehrnoosh.booklisting;
 
 import android.app.LoaderManager;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.Loader;
@@ -14,11 +15,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -38,7 +36,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     private BookAdapter mAdapter;
     public static final String LOG_TAG = BookActivity.class.getName();
     public String searchQuery;
-    public int maxResults;
+    public int maxResults=10;
     /**
      * URL for book data from the GoogleBook dataset
      */
@@ -116,50 +114,7 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
             mEmptyStateTextView.setText(R.string.no_internet_connection);
         }
 
-        Spinner spinner = (Spinner) findViewById(R.id.max_results);
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.issues_quantity_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        spinner.setAdapter(adapter);
-        // Set default item in spinner at the 3rd position (=10)
-        spinner.setSelection(2);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                maxResults = Integer.valueOf(parent.getItemAtPosition(position).toString());
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                maxResults = 10;
-            }
-        });
-        SearchView searchView = (SearchView) findViewById(R.id.search_view);
-        ImageButton searchButton = (ImageButton) findViewById(R.id.search_button);
-        searchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-               doSearch();
-            }
-        });
-
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String s) {
-                doSearch();
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String s) {
-                return false;
-            }
-        });
-
-         }
+    }
 
     @Override
     public Loader<List<Book>> onCreateLoader(int id, Bundle args) {
@@ -198,9 +153,8 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
         mAdapter.clear();
     }
 
-    private void doSearch(){
-        SearchView searchView = (SearchView) findViewById(R.id.search_view);
-        searchQuery = searchView.getQuery().toString();
+    private void doSearch(String query){
+        searchQuery = query;
         url = String.format(GOOGLEBOOk_REQUEST_URL, searchQuery, maxResults);
         LoaderManager loaderManager = getLoaderManager();
         loaderManager.restartLoader(BOOK_LOADER_ID, null, BookActivity.this);
@@ -209,7 +163,46 @@ public class BookActivity extends AppCompatActivity implements LoaderManager.Loa
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
-        return true;
+        final MenuItem searchItem = menu.findItem(R.id.search);
+
+        if (searchItem != null) {
+            SearchView searchView = (SearchView) searchItem.getActionView();
+            searchView.setOnCloseListener(new SearchView.OnCloseListener() {
+                @Override
+                public boolean onClose() {
+                    return  false;
+                }
+            });
+            searchView.setOnSearchClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+//            EditText searchPlate = (EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text);
+//            searchPlate.setHint("Search");
+//            View searchPlateView = searchView.findViewById(android.support.v7.appcompat.R.id.search_plate);
+//            searchPlateView.setBackgroundColor(ContextCompat.getColor(this, android.R.color.transparent));
+//            // use this method for search process
+            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                @Override
+                public boolean onQueryTextSubmit(String query) {
+                    // use this method when query submitted
+                    doSearch(query);
+                    return false;
+                }
+
+                @Override
+                public boolean onQueryTextChange(String newText) {
+                    //Toast.makeText(BookActivity.this, newText, Toast.LENGTH_SHORT).show();
+                    return false;
+                }
+            });
+            SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
+            searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+
+        }
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override
